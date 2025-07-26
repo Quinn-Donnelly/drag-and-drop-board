@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://rc3uxvgheywh"]
+[gd_scene load_steps=4 format=3 uid="uid://rc3uxvgheywh"]
 
 [ext_resource type="PackedScene" uid="uid://43jma24jye2w" path="res://scene/game_board.tscn" id="1_5kiuu"]
-[ext_resource type="PackedScene" uid="uid://bwxorb6l0nxnc" path="res://scene/peice.tscn" id="2_dbls1"]
+[ext_resource type="PackedScene" uid="uid://bwxorb6l0nxnc" path="res://scene/piece/piece.tscn" id="2_dbls1"]
+[ext_resource type="Script" uid="uid://dw3igmuiwnk01" path="res://component/piece_mover.gd" id="3_33cqm"]
 
 [node name="Game" type="Node2D"]
 
@@ -23,3 +24,7 @@ position = Vector2(230, 529)
 
 [node name="peice4" parent="." instance=ExtResource("2_dbls1")]
 position = Vector2(265, 534)
+
+[node name="PieceMover" type="Node" parent="." node_paths=PackedStringArray("boards")]
+script = ExtResource("3_33cqm")
+boards = [NodePath("../GameBoard")]
