@@ -11,18 +11,18 @@ position = Vector2(455, 128)
 scale = Vector2(3, 3)
 metadata/_edit_lock_ = true
 
-[node name="peice" parent="." instance=ExtResource("2_dbls1")]
+[node name="BigBottom" parent="." instance=ExtResource("2_dbls1")]
 position = Vector2(476, 593)
 scale = Vector2(2, 2)
 
-[node name="peice2" parent="." instance=ExtResource("2_dbls1")]
+[node name="Big Left" parent="." instance=ExtResource("2_dbls1")]
 position = Vector2(245, 510)
 scale = Vector2(2, 2)
 
-[node name="peice3" parent="." instance=ExtResource("2_dbls1")]
+[node name="SmallLeft" parent="." instance=ExtResource("2_dbls1")]
 position = Vector2(230, 529)
 
-[node name="peice4" parent="." instance=ExtResource("2_dbls1")]
+[node name="SmallRight" parent="." instance=ExtResource("2_dbls1")]
 position = Vector2(265, 534)
 
 [node name="PieceMover" type="Node" parent="." node_paths=PackedStringArray("boards")]
