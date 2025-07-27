@@ -46,7 +46,7 @@ func _stop_dragging() -> void:
 	set_process(false)
 
 func _cancel_dragging() -> void:
-	target.position = startingPosition
+	target.global_position = startingPosition
 	_stop_dragging()
 	drag_canceled.emit(startingPosition)
 	
