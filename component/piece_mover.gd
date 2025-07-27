@@ -3,7 +3,7 @@ extends Node
 
 @export var boards: Array[PieceGrid]
 
-const POSITION_NOT_FOUND = -1
+const POSITION_NOT_FOUND: int = -1
 
 func _ready() -> void:
 	for piece: Piece in get_tree().get_nodes_in_group("piece"):
@@ -27,14 +27,14 @@ func _on_drag_dropped(starting_position: Vector2, piece: Piece):
 	
 	var startingTileLocation: Vector2i = boards[startingGameBoardIndex].get_tile(starting_position)
 	var endingTileLocation: Vector2i = boards[endingGameBoardIndex].get_tile(piece.get_global_mouse_position())	
-	var isEndingTileOccupied = boards[endingGameBoardIndex].is_occupied(endingTileLocation)
-	var hasStartingBoard = startingGameBoardIndex != POSITION_NOT_FOUND
+	var isEndingTileOccupied: bool = boards[endingGameBoardIndex].is_occupied(endingTileLocation)
+	var hasStartingBoard: bool = startingGameBoardIndex != POSITION_NOT_FOUND
 	
 	if hasStartingBoard:
 		boards[startingGameBoardIndex].remove(startingTileLocation)
 	
 	if isEndingTileOccupied:
-		var startingParent = piece.get_parent()
+		var startingParent: Node = piece.get_parent()
 		var swapPiece: Node2D = boards[endingGameBoardIndex].get_piece(endingTileLocation)
 		swapPiece.global_position = starting_position
 		boards[endingGameBoardIndex].remove(endingTileLocation)
