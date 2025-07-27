@@ -6,7 +6,6 @@ extends TileMapLayer
 var grid: Dictionary[Vector2i, Node]
 
 func _ready() -> void:
-	# TODO: need to listen for object added to leave tree to clean up the structure
 	for x in size.x:
 		for y in size.y:
 			grid[Vector2i(x, y)] = null
