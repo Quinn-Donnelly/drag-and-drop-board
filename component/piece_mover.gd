@@ -18,34 +18,35 @@ func _on_drag_canceled(_starting_position: Vector2, _piece: Piece):
 	return 
 
 func _on_drag_dropped(starting_position: Vector2, piece: Piece):
-	var startingGameBoardIndex = _get_piece_board_index(starting_position)
-	var endingGameBoardIndex = _get_piece_board_index(piece.get_global_mouse_position())
-	var startingTilePosition = boards[startingGameBoardIndex].get_tile(starting_position)
-	var endingTile: Vector2i = boards[endingGameBoardIndex].get_tile(piece.get_global_mouse_position())	
-	var isEndingTileOccupied = boards[endingGameBoardIndex].is_occupied(endingTile)
-	var hasStartingBoard = startingGameBoardIndex != POSITION_NOT_FOUND
-	
-	if hasStartingBoard:
-		boards[startingGameBoardIndex].remove(startingTilePosition)
+	var startingGameBoardIndex: int = _get_piece_board_index(starting_position)
+	var endingGameBoardIndex: int = _get_piece_board_index(piece.get_global_mouse_position())
 	
 	if endingGameBoardIndex == POSITION_NOT_FOUND:
 		piece.global_position = starting_position
 		return
 	
+	var startingTileLocation: Vector2i = boards[startingGameBoardIndex].get_tile(starting_position)
+	var endingTileLocation: Vector2i = boards[endingGameBoardIndex].get_tile(piece.get_global_mouse_position())	
+	var isEndingTileOccupied = boards[endingGameBoardIndex].is_occupied(endingTileLocation)
+	var hasStartingBoard = startingGameBoardIndex != POSITION_NOT_FOUND
+	
+	if hasStartingBoard:
+		boards[startingGameBoardIndex].remove(startingTileLocation)
+	
 	if isEndingTileOccupied:
 		var startingParent = piece.get_parent()
-		var swapPiece: Node2D = boards[endingGameBoardIndex].get_piece(endingTile)
+		var swapPiece: Node2D = boards[endingGameBoardIndex].get_piece(endingTileLocation)
 		swapPiece.global_position = starting_position
-		boards[endingGameBoardIndex].remove(endingTile)
+		boards[endingGameBoardIndex].remove(endingTileLocation)
 		swapPiece.reparent(startingParent) 
 		if hasStartingBoard:
-			boards[startingGameBoardIndex].add_piece(startingTilePosition, swapPiece)
+			boards[startingGameBoardIndex].add_piece(startingTileLocation, swapPiece)
 	
 	piece.reparent(boards[endingGameBoardIndex])
-	boards[endingGameBoardIndex].add_piece(endingTile, piece)
-	piece.global_position = boards[endingGameBoardIndex].get_global_tile_placement_position(endingTile)
+	boards[endingGameBoardIndex].add_piece(endingTileLocation, piece)
+	piece.global_position = boards[endingGameBoardIndex].get_global_tile_placement_position(endingTileLocation)
 
-func _get_piece_board_index(location: Vector2):
+func _get_piece_board_index(location: Vector2) -> int:
 	for i in boards.size():
 		if boards[i].is_on_grid(location): 
 			return i 
