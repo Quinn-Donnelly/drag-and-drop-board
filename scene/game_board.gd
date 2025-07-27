@@ -1,12 +1,13 @@
 class_name GameBoard
 extends TileMapLayer
 
-@export var boxSize: Vector2i
+# UNUSED: likely can move inside the GameBoard as componet for now keeping as reference if ends up not being needed
+
+@onready var piece_grid = $PieceGrid
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("select"):
 		var location: Vector2i = _getMousePosition()
-		print(_is_on_board(location))
 
 func _getMousePosition() -> Vector2i:
 	return local_to_map(to_local(get_global_mouse_position()))

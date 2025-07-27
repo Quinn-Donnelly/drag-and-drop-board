@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwxorb6l0nxnc"]
+[gd_scene load_steps=5 format=3 uid="uid://bwxorb6l0nxnc"]
 
+[ext_resource type="Script" uid="uid://ssne7vp675oc" path="res://scene/piece/pieice.gd" id="1_qyqao"]
 [ext_resource type="Texture2D" uid="uid://c4v8gsneo2ypl" path="res://art/Tiles/tile_0084.png" id="1_vetoo"]
 [ext_resource type="Script" uid="uid://do86nto86od4r" path="res://component/drag_and_drop.gd" id="2_uitjp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uitjp"]
 
-[node name="peice" type="Area2D"]
+[node name="peice" type="Area2D" groups=["piece"]]
+script = ExtResource("1_qyqao")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_uitjp")
