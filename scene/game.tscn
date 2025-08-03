@@ -53,3 +53,14 @@ gameManager = NodePath("../GameManager")
 [node name="GameClockLabel" type="Label" parent="UI"]
 offset_right = 40.0
 offset_bottom = 23.0
+metadata/_edit_lock_ = true
+
+[node name="CurrentResourceLabel" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1.0
+offset_bottom = 23.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
