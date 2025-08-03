@@ -35,7 +35,20 @@ func remove(location: Vector2i) -> void:
 	grid[location].tree_exited.disconnect(_on_tree_exited)
 	grid[location] = null
 
+func getBoardYield() -> Dictionary:
+	var totalYields = {
+		"water": 0,
+		"wheat": 0,
+		"research": 0
+	}
+	for location in grid:
+		var piece: Piece = grid[location] as Piece
+		if piece:
+			var pieceYields = piece.getYield()
+			totalYields.water = totalYields.water + pieceYields.water
+			totalYields.wheat = totalYields.wheat + pieceYields.wheat
+			totalYields.research = totalYields.research + pieceYields.research
+	return totalYields
 
 func _on_tree_exited(location: Vector2i, _piece: Node) -> void:
 	grid[location] = null
-	print("who the fuck")

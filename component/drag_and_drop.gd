@@ -16,7 +16,7 @@ func _ready() -> void:
 	assert(target, "You must set a target for drag_and_drop")
 	set_process(false)
 	target.input_event.connect(_on_target_input_event.unbind(1))
-	
+
 func _on_target_input_event(_viewport: Node, _event: InputEvent) -> void:
 	if not enabled:
 		return

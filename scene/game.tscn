@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://rc3uxvgheywh"]
+[gd_scene load_steps=7 format=3 uid="uid://rc3uxvgheywh"]
 
 [ext_resource type="PackedScene" uid="uid://43jma24jye2w" path="res://scene/game_board.tscn" id="1_5kiuu"]
 [ext_resource type="PackedScene" uid="uid://bwxorb6l0nxnc" path="res://scene/piece/piece.tscn" id="2_dbls1"]
 [ext_resource type="Script" uid="uid://dw3igmuiwnk01" path="res://component/piece_mover.gd" id="3_33cqm"]
+[ext_resource type="Script" uid="uid://c4w4nfioukxqp" path="res://component/game_manager.gd" id="4_p1ry8"]
+[ext_resource type="Script" uid="uid://dd70mesh661o4" path="res://component/game_clock.gd" id="5_xlg7c"]
+[ext_resource type="Script" uid="uid://c30ungfxamr1q" path="res://component/yield_manager.gd" id="6_xlg7c"]
 
 [node name="Game" type="Node2D"]
 
@@ -28,3 +31,16 @@ position = Vector2(265, 534)
 [node name="PieceMover" type="Node" parent="." node_paths=PackedStringArray("boards")]
 script = ExtResource("3_33cqm")
 boards = [NodePath("../GameBoard")]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("4_p1ry8")
+
+[node name="GameClock" type="Node" parent="GameManager"]
+script = ExtResource("5_xlg7c")
+
+[node name="GameTimer" type="Timer" parent="GameManager/GameClock"]
+autostart = true
+
+[node name="ProductionManager" type="Node" parent="GameManager" node_paths=PackedStringArray("productionBoards")]
+script = ExtResource("6_xlg7c")
+productionBoards = [NodePath("../../GameBoard")]
