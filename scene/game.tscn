@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dw3igmuiwnk01" path="res://component/piece_mover.gd" id="3_33cqm"]
 [ext_resource type="Script" uid="uid://c4w4nfioukxqp" path="res://component/game_manager.gd" id="4_p1ry8"]
 [ext_resource type="Script" uid="uid://dd70mesh661o4" path="res://component/game_clock.gd" id="5_xlg7c"]
-[ext_resource type="Script" uid="uid://c30ungfxamr1q" path="res://component/yield_manager.gd" id="6_xlg7c"]
+[ext_resource type="Script" uid="uid://c30ungfxamr1q" path="res://component/production_manager.gd" id="6_xlg7c"]
 
 [node name="Game" type="Node2D"]
 

@@ -35,12 +35,8 @@ func remove(location: Vector2i) -> void:
 	grid[location].tree_exited.disconnect(_on_tree_exited)
 	grid[location] = null
 
-func getBoardYield() -> Dictionary:
-	var totalYields = {
-		"water": 0,
-		"wheat": 0,
-		"research": 0
-	}
+func getBoardYield() -> ResourceProduction:
+	var totalYields: ResourceProduction = ResourceProduction.new()
 	for location in grid:
 		var piece: Piece = grid[location] as Piece
 		if piece:

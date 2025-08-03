@@ -1,11 +1,8 @@
 class_name Piece
 extends Area2D
 
+@export var production: ResourceProduction
 @onready var drag_and_drop = $DragAndDrop
 
-func getYield():
-	return {
-		"water": 1,
-		"wheat": 0,
-		"research": 0
-	}
+func getYield() -> ResourceProduction:
+	return production
