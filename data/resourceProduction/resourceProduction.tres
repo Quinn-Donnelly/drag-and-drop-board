@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ResourceProduction" load_steps=2 format=3 uid="uid://cyqrhiwl4kblj"]
+
+[ext_resource type="Script" uid="uid://c8sayuif726ek" path="res://data/resourceProduction/resource_production.gd" id="1_8iebr"]
+
+[resource]
+script = ExtResource("1_8iebr")
+water = 0
+wheat = 0
+research = 5
+metadata/water = 0
+metadata/wheat = 0
+metadata/research = 0
