@@ -45,9 +45,9 @@ func getBoardYield() -> Dictionary:
 		var piece: Piece = grid[location] as Piece
 		if piece:
 			var pieceYields = piece.getYield()
-			totalYields.water = totalYields.water + pieceYields.water
-			totalYields.wheat = totalYields.wheat + pieceYields.wheat
-			totalYields.research = totalYields.research + pieceYields.research
+			totalYields.water += pieceYields.water
+			totalYields.wheat += pieceYields.wheat
+			totalYields.research += pieceYields.research
 	return totalYields
 
 func _on_tree_exited(location: Vector2i, _piece: Node) -> void:
