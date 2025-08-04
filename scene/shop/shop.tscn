@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgb7qaebau7c2"]
+[gd_scene load_steps=5 format=3 uid="uid://bgb7qaebau7c2"]
 
 [ext_resource type="TileSet" uid="uid://8g7688xbccm4" path="res://art/board_tiles.tres" id="1_pfgle"]
-[ext_resource type="Script" uid="uid://bnchs4hiymi5t" path="res://component/piece_grid.gd" id="2_mq6bq"]
+[ext_resource type="Script" uid="uid://2j3q5ph7dgvg" path="res://scene/shop/shop.gd" id="2_pfgle"]
+[ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="3_at5no"]
+[ext_resource type="Resource" uid="uid://cfhb67cdyg2fu" path="res://data/workers/wizard/wizard.tres" id="4_04gn0"]
 
 [node name="Node2D" type="TileMapLayer"]
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 6, 0, 0, 0)
 tile_set = ExtResource("1_pfgle")
-script = ExtResource("2_mq6bq")
+script = ExtResource("2_pfgle")
+available = Array[ExtResource("3_at5no")]([ExtResource("4_04gn0")])
 size = Vector2i(1, 3)
+spriteOffset = Vector2(0, -16)

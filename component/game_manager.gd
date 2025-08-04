@@ -7,11 +7,13 @@ signal end_game
 
 @onready var gameClock: GameClock = $GameClock
 @onready var productionManager: ProductionManager = $ProductionManager
+@onready var gameStartDelay: Timer = $GameStartDelay
 
 func _ready() -> void:
 	gameClock.connect("game_tick", self._on_game_clock_tick)
+	gameStartDelay.connect("timeout", self._start_game)
 
-func startGame() -> void:
+func _start_game() -> void:
 	start_game.emit()
 
 func endGame() -> void: 
