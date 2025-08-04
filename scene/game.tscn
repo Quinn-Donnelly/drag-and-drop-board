@@ -1,14 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://rc3uxvgheywh"]
+[gd_scene load_steps=9 format=3 uid="uid://rc3uxvgheywh"]
 
-[ext_resource type="PackedScene" uid="uid://43jma24jye2w" path="res://scene/game_board.tscn" id="1_5kiuu"]
+[ext_resource type="PackedScene" uid="uid://43jma24jye2w" path="res://scene/game_board/game_board.tscn" id="1_5kiuu"]
 [ext_resource type="PackedScene" uid="uid://bwxorb6l0nxnc" path="res://scene/piece/piece.tscn" id="2_dbls1"]
 [ext_resource type="Script" uid="uid://dw3igmuiwnk01" path="res://component/piece_mover.gd" id="3_33cqm"]
 [ext_resource type="Script" uid="uid://c4w4nfioukxqp" path="res://component/game_manager.gd" id="4_p1ry8"]
 [ext_resource type="Script" uid="uid://dd70mesh661o4" path="res://component/game_clock.gd" id="5_xlg7c"]
 [ext_resource type="Script" uid="uid://c30ungfxamr1q" path="res://component/production_manager.gd" id="6_xlg7c"]
 [ext_resource type="Script" uid="uid://ddbe1ctsui0x2" path="res://scene/ui/ui.gd" id="7_qpk70"]
+[ext_resource type="PackedScene" uid="uid://bgb7qaebau7c2" path="res://scene/shop/shop.tscn" id="8_ll5lq"]
 
 [node name="Game" type="Node2D"]
+
+[node name="Shop" parent="." instance=ExtResource("8_ll5lq")]
+position = Vector2(0, 230)
+scale = Vector2(3, 3)
+spriteOffset = Vector2(0, -16)
 
 [node name="GameBoard" parent="." instance=ExtResource("1_5kiuu")]
 position = Vector2(455, 128)
@@ -20,7 +26,7 @@ position = Vector2(476, 593)
 scale = Vector2(2, 2)
 
 [node name="Big Left" parent="." instance=ExtResource("2_dbls1")]
-position = Vector2(245, 510)
+position = Vector2(256, 500)
 scale = Vector2(2, 2)
 
 [node name="SmallLeft" parent="." instance=ExtResource("2_dbls1")]
@@ -31,7 +37,7 @@ position = Vector2(265, 534)
 
 [node name="PieceMover" type="Node" parent="." node_paths=PackedStringArray("boards")]
 script = ExtResource("3_33cqm")
-boards = [NodePath("../GameBoard")]
+boards = [NodePath("../GameBoard"), NodePath("../Shop")]
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("4_p1ry8")
