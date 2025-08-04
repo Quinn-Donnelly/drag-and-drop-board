@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WorkerInfo" load_steps=5 format=3 uid="uid://cfhb67cdyg2fu"]
+
+[ext_resource type="Script" uid="uid://c8sayuif726ek" path="res://data/resourceProduction/resource_production.gd" id="1_86lqx"]
+[ext_resource type="PackedScene" uid="uid://bwxorb6l0nxnc" path="res://scene/piece/piece.tscn" id="2_tljip"]
+[ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="3_myyxa"]
+
+[sub_resource type="Resource" id="Resource_d82c3"]
+script = ExtResource("1_86lqx")
+water = 0
+wheat = 0
+research = 5
+metadata/_custom_type_script = "uid://c8sayuif726ek"
+
+[resource]
+script = ExtResource("3_myyxa")
+scene = ExtResource("2_tljip")
+production = SubResource("Resource_d82c3")

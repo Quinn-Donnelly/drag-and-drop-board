@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://keetvitr6bx5"]
+
+[ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="1_ytcev"]
+
+[resource]
+script = ExtResource("1_ytcev")

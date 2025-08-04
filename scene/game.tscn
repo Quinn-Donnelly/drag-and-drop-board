@@ -11,10 +11,11 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="Shop" parent="." instance=ExtResource("8_ll5lq")]
+[node name="Shop" parent="." node_paths=PackedStringArray("gameManager", "pieceMover") instance=ExtResource("8_ll5lq")]
 position = Vector2(0, 230)
 scale = Vector2(3, 3)
-spriteOffset = Vector2(0, -16)
+gameManager = NodePath("../GameManager")
+pieceMover = NodePath("../PieceMover")
 
 [node name="GameBoard" parent="." instance=ExtResource("1_5kiuu")]
 position = Vector2(455, 128)
@@ -51,6 +52,10 @@ autostart = true
 [node name="ProductionManager" type="Node" parent="GameManager" node_paths=PackedStringArray("productionBoards")]
 script = ExtResource("6_xlg7c")
 productionBoards = [NodePath("../../GameBoard")]
+
+[node name="GameStartDelay" type="Timer" parent="GameManager"]
+one_shot = true
+autostart = true
 
 [node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("gameManager")]
 script = ExtResource("7_qpk70")

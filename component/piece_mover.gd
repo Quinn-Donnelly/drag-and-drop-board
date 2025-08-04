@@ -7,9 +7,12 @@ const POSITION_NOT_FOUND: int = -1
 
 func _ready() -> void:
 	for piece: Piece in get_tree().get_nodes_in_group("piece"):
-		piece.drag_and_drop.drag_started.connect(_on_drag_started.bind(piece))
-		piece.drag_and_drop.drag_canceled.connect(_on_drag_canceled.bind(piece))
-		piece.drag_and_drop.drag_dropped.connect(_on_drag_dropped.bind(piece))
+		startListening(piece)
+
+func startListening(piece: Piece):
+	piece.drag_and_drop.drag_started.connect(_on_drag_started.bind(piece))
+	piece.drag_and_drop.drag_canceled.connect(_on_drag_canceled.bind(piece))
+	piece.drag_and_drop.drag_dropped.connect(_on_drag_dropped.bind(piece))
 
 func _on_drag_started(piece: Node):
 	piece.z_index = 99	
