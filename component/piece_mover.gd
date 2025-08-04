@@ -11,13 +11,16 @@ func _ready() -> void:
 		piece.drag_and_drop.drag_canceled.connect(_on_drag_canceled.bind(piece))
 		piece.drag_and_drop.drag_dropped.connect(_on_drag_dropped.bind(piece))
 
-func _on_drag_started(_piece: Node):
+func _on_drag_started(piece: Node):
+	piece.z_index = 99	
 	return
 
-func _on_drag_canceled(_starting_position: Vector2, _piece: Piece):
+func _on_drag_canceled(_starting_position: Vector2, piece: Piece):
+	piece.z_index = 0	
 	return 
 
 func _on_drag_dropped(starting_position: Vector2, piece: Piece):
+	piece.z_index = 0
 	var startingGameBoardIndex: int = _get_piece_board_index(starting_position)
 	var endingGameBoardIndex: int = _get_piece_board_index(piece.get_global_mouse_position())
 	

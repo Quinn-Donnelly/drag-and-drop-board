@@ -2,6 +2,7 @@ class_name PieceGrid
 extends TileMapLayer
 
 @export var size: Vector2i
+@export var spriteOffset: Vector2
 
 var grid: Dictionary[Vector2i, Node]
 
@@ -28,7 +29,7 @@ func add_piece(location: Vector2i, piece: Node) -> void:
 	piece.tree_exited.connect(_on_tree_exited.bind(location, piece))
 
 func get_global_tile_placement_position(tile: Vector2i) -> Vector2:
-	return to_global(map_to_local(tile))
+	return to_global(map_to_local(tile)) + spriteOffset
 
 # Function removes from grid but does not manage the reparenting
 func remove(location: Vector2i) -> void:

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgb7qaebau7c2"]
+
+[ext_resource type="TileSet" uid="uid://8g7688xbccm4" path="res://art/board_tiles.tres" id="1_pfgle"]
+[ext_resource type="Script" uid="uid://bnchs4hiymi5t" path="res://component/piece_grid.gd" id="2_mq6bq"]
+
+[node name="Node2D" type="TileMapLayer"]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 6, 0, 0, 0)
+tile_set = ExtResource("1_pfgle")
+script = ExtResource("2_mq6bq")
+size = Vector2i(1, 3)
