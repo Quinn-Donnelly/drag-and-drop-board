@@ -25,9 +25,9 @@ func createAndSet(location: Vector2i, workerInfo: WorkerInfo) -> void:
 	add_piece(location, item)
 
 func toggleAffordableUnits(currentGold: int) -> void:
-	for unit in grid.values():
+	for unit: Piece in grid.values():
 		if unit:
-			(unit as Piece).drag_and_drop.enabled = (unit as Piece).workerInfo.unitStats.cost < currentGold
+			unit.drag_and_drop.enabled = unit.workerInfo.unitStats.cost < currentGold
 
 func _on_resource_change(currentResources: ResourceProduction):
 	toggleAffordableUnits(currentResources.gold)
