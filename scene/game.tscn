@@ -12,11 +12,12 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="Shop" parent="." node_paths=PackedStringArray("gameManager", "pieceMover") instance=ExtResource("8_ll5lq")]
+[node name="Shop" parent="." node_paths=PackedStringArray("gameManager", "pieceMover", "productionManager") instance=ExtResource("8_ll5lq")]
 position = Vector2(0, 230)
 scale = Vector2(3, 3)
 gameManager = NodePath("../GameManager")
 pieceMover = NodePath("../PieceMover")
+productionManager = NodePath("../GameManager/ProductionManager")
 
 [node name="GameBoard" parent="." instance=ExtResource("1_5kiuu")]
 position = Vector2(455, 128)
