@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://keetvitr6bx5"]
+[gd_resource type="Resource" script_class="WorkerInfo" load_steps=2 format=3 uid="uid://keetvitr6bx5"]
 
 [ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="1_ytcev"]
 

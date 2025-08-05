@@ -14,4 +14,3 @@ func gatherYields() -> void:
 func addYieldToTotal(resources: ResourceProduction):
 	totalYields.addToResources(resources)
 	current_production_update.emit(totalYields)
-	print(totalYields)

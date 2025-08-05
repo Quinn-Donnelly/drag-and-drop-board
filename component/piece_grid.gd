@@ -41,10 +41,7 @@ func getBoardYield() -> ResourceProduction:
 	for location in grid:
 		var piece: Piece = grid[location] as Piece
 		if piece:
-			var pieceYields = piece.getYield()
-			totalYields.water += pieceYields.water
-			totalYields.wheat += pieceYields.wheat
-			totalYields.research += pieceYields.research
+			totalYields.addToResources(piece.getYield())
 	return totalYields
 
 func _on_tree_exited(location: Vector2i, _piece: Node) -> void:

@@ -7,6 +7,7 @@ script = ExtResource("1_8iebr")
 water = 0
 wheat = 0
 research = 5
+gold = 0
 metadata/water = 0
 metadata/wheat = 0
 metadata/research = 0
