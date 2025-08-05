@@ -16,6 +16,7 @@ func setRandom() -> void:
 
 func createAndSet(location: Vector2i, workerInfo: WorkerInfo) -> void:
 	var item = workerInfo.scene.instantiate() as Piece
+	item.workerInfo = workerInfo
 	add_child(item)
 	pieceMover.startListening(item)
 	item.global_position = get_global_tile_placement_position(location)

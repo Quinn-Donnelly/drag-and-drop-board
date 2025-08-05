@@ -13,4 +13,4 @@ func _on_clock_update(gameTime: int) -> void:
 	gameClockLabel.text = "Game Time: %d" % gameTime
 
 func _on_current_production_update(resources: ResourceProduction) -> void:
-	currentResourceLabel.text = "Water: %d | Wheat: %d | Research: %d" % [resources.water, resources.wheat, resources.research]
+	currentResourceLabel.text = "Water: %d | Wheat: %d | Research: %d | Gold: %d" % [resources.water, resources.wheat, resources.research, resources.gold]
