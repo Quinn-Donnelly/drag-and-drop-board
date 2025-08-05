@@ -4,7 +4,7 @@ extends Area2D
 
 
 @export var workerInfo: WorkerInfo
-var production: ResourceProduction
+@export var production: ResourceProduction
 @onready var drag_and_drop = $DragAndDrop
 
 func _ready() -> void:
