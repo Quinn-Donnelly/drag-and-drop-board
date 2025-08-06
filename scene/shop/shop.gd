@@ -7,6 +7,8 @@ extends PieceGrid
 @export var pieceMover: PieceMover
 @export var productionManager: ProductionManager
 
+var resourceHoldNumber: int
+
 func _ready() -> void:
 	gameManager.connect("start_game", self._on_game_start)
 	productionManager.connect("current_production_update", self._on_resource_change)
@@ -23,6 +25,37 @@ func createAndSet(location: Vector2i, workerInfo: WorkerInfo) -> void:
 	pieceMover.startListening(item)
 	item.global_position = get_global_tile_placement_position(location)
 	add_piece(location, item)
+
+func add_piece(location: Vector2i, piece: Node) -> void:
+	var unit = piece as Piece
+	unit.drag_and_drop.connect("drag_started", self._on_drag_start.bind(unit))
+	unit.drag_and_drop.connect("drag_dropped", self._on_drag_drop.bind(unit))
+	unit.drag_and_drop.connect("drag_canceled", self._on_drag_cancel)
+	super.add_piece(location, piece)
+
+func remove(location: Vector2i) -> void:
+	var unit = (grid[location] as Piece)
+	unit.drag_and_drop.disconnect("drag_started", self._on_drag_start.bind(unit))
+	super.remove(location)
+
+func reserveGoldCost(reserveAmount: int):
+	var reserveResources = ResourceProduction.new()
+	reserveResources.gold = reserveAmount
+	resourceHoldNumber = productionManager.createResourceHold(reserveResources)
+
+func cancelReservation() -> void:
+	productionManager.cancelHold(resourceHoldNumber)
+	resourceHoldNumber = 0
+
+func _on_drag_start(unit: Piece):
+	reserveGoldCost(unit.workerInfo.unitStats.cost)
+
+func _on_drag_drop(_starting_position: Vector2, _unit: Piece):
+	# Need to handle dropping it back on the shop
+	productionManager.processHold(resourceHoldNumber)
+
+func _on_drag_cancel(_starting_location: Vector2) -> void:
+	cancelReservation()
 
 func toggleAffordableUnits(currentGold: int) -> void:
 	for unit: Piece in grid.values():
