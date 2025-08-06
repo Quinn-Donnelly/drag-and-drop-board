@@ -30,6 +30,7 @@ func add_piece(location: Vector2i, piece: Node) -> void:
 	var unit = piece as Piece
 	unit.drag_and_drop.connect("drag_started", self._on_drag_start.bind(unit))
 	unit.drag_and_drop.connect("drag_dropped", self._on_drag_drop.bind(unit))
+	unit.drag_and_drop.connect("drag_canceled", self._on_drag_cancel)
 	super.add_piece(location, piece)
 
 func remove(location: Vector2i) -> void:
