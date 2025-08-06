@@ -20,6 +20,7 @@ func createResourceHold(resources: ResourceProduction) -> int:
 	var holdNumber = randi()	
 	# TODO: Throw or return error if can't afford
 	totalYields.subtractFromResources(resources)
+	current_production_update.emit(totalYields)
 	resourceHolds[holdNumber] = resources
 	return holdNumber
 
@@ -31,4 +32,5 @@ func cancelHold(holdNumber: int) -> void:
 	if not refund:
 		return
 	totalYields.addToResources(refund)
+	current_production_update.emit(totalYields)
 	resourceHolds.erase(holdNumber)
