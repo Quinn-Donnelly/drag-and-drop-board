@@ -42,12 +42,19 @@ func reserveGoldCost(reserveAmount: int):
 	reserveResources.gold = reserveAmount
 	resourceHoldNumber = productionManager.createResourceHold(reserveResources)
 
+func cancelReservation() -> void:
+	productionManager.cancelHold(resourceHoldNumber)
+	resourceHoldNumber = 0
+
 func _on_drag_start(unit: Piece):
 	reserveGoldCost(unit.workerInfo.unitStats.cost)
 
 func _on_drag_drop(_starting_position: Vector2, _unit: Piece):
 	# Need to handle dropping it back on the shop
 	productionManager.processHold(resourceHoldNumber)
+
+func _on_drag_cancel(_starting_location: Vector2) -> void:
+	cancelReservation()
 
 func toggleAffordableUnits(currentGold: int) -> void:
 	for unit: Piece in grid.values():
