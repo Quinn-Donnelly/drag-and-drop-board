@@ -7,6 +7,8 @@ extends PieceGrid
 @export var pieceMover: PieceMover
 @export var productionManager: ProductionManager
 
+var resourceHoldNumber: int
+
 func _ready() -> void:
 	gameManager.connect("start_game", self._on_game_start)
 	productionManager.connect("current_production_update", self._on_resource_change)
@@ -27,6 +29,7 @@ func createAndSet(location: Vector2i, workerInfo: WorkerInfo) -> void:
 func add_piece(location: Vector2i, piece: Node) -> void:
 	var unit = piece as Piece
 	unit.drag_and_drop.connect("drag_started", self._on_drag_start.bind(unit))
+	unit.drag_and_drop.connect("drag_dropped", self._on_drag_drop.bind(unit))
 	super.add_piece(location, piece)
 
 func remove(location: Vector2i) -> void:
@@ -37,10 +40,14 @@ func remove(location: Vector2i) -> void:
 func reserveGoldCost(reserveAmount: int):
 	var reserveResources = ResourceProduction.new()
 	reserveResources.gold = reserveAmount
-	productionManager.createResourceHold(reserveResources)
+	resourceHoldNumber = productionManager.createResourceHold(reserveResources)
 
 func _on_drag_start(unit: Piece):
 	reserveGoldCost(unit.workerInfo.unitStats.cost)
+
+func _on_drag_drop(_starting_position: Vector2, _unit: Piece):
+	# Need to handle dropping it back on the shop
+	productionManager.processHold(resourceHoldNumber)
 
 func toggleAffordableUnits(currentGold: int) -> void:
 	for unit: Piece in grid.values():
