@@ -18,14 +18,19 @@ func _ready() -> void:
 	target.input_event.connect(_on_target_input_event.unbind(1))
 
 func _on_target_input_event(_viewport: Node, _event: InputEvent) -> void:
-	if not enabled:
+	var game_msec = Time.get_ticks_msec()
+	if not enabled and not dragging:
+		print("%s : drag not enabled" % game_msec)
 		return
 		
 	if not dragging and not get_tree().get_first_node_in_group("dragging") and Input.is_action_just_pressed("select"):
+		print("%s : drag start" % game_msec)
 		_start_dragging()
 	elif dragging and Input.is_action_just_released("select"):
+		print("%s : drag drop" % game_msec)
 		_drop()
 	elif dragging and Input.is_action_just_pressed("cancel"):
+		print("%s : drag cancel" % game_msec)
 		_cancel_dragging()
 
 func _physics_process(_delta: float) -> void:
