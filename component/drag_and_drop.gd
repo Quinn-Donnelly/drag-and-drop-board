@@ -39,7 +39,7 @@ func _start_dragging() -> void:
 	dragging = true
 	target.add_to_group("dragging")
 	drag_started.emit()
-	
+
 func _stop_dragging() -> void:
 	dragging = false
 	target.remove_from_group("dragging")
@@ -49,7 +49,7 @@ func _cancel_dragging() -> void:
 	target.global_position = startingPosition
 	_stop_dragging()
 	drag_canceled.emit(startingPosition)
-	
+
 func _drop() -> void:
 	_stop_dragging()
 	drag_dropped.emit(startingPosition)

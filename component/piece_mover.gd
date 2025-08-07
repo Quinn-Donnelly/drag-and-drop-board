@@ -36,6 +36,9 @@ func _on_drag_dropped(starting_position: Vector2, piece: Piece):
 	var isEndingTileOccupied: bool = boards[endingGameBoardIndex].is_occupied(endingTileLocation)
 	var hasStartingBoard: bool = startingGameBoardIndex != POSITION_NOT_FOUND
 	
+	if startingGameBoardIndex == endingGameBoardIndex and startingTileLocation == endingTileLocation:
+		return
+
 	if hasStartingBoard:
 		boards[startingGameBoardIndex].remove(startingTileLocation)
 	

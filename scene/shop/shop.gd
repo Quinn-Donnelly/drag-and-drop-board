@@ -31,6 +31,7 @@ func add_piece(location: Vector2i, piece: Node) -> void:
 	unit.drag_and_drop.connect("drag_started", self._on_drag_start.bind(unit))
 	unit.drag_and_drop.connect("drag_dropped", self._on_drag_drop.bind(unit))
 	unit.drag_and_drop.connect("drag_canceled", self._on_drag_cancel)
+	unit.drag_and_drop.enabled = canAfford(unit)
 	super.add_piece(location, piece)
 
 func remove(location: Vector2i) -> void:
@@ -49,6 +50,14 @@ func cancelReservation() -> void:
 	productionManager.cancelHold(resourceHoldNumber)
 	resourceHoldNumber = 0
 
+func toggleAffordableUnits(_currentGold: int) -> void:
+	for unit: Piece in grid.values():
+		if unit:
+			unit.drag_and_drop.enabled = canAfford(unit)
+
+func canAfford(unit: Piece) -> bool:
+	return unit.workerInfo.unitStats.cost <= productionManager.totalYields.gold
+
 func _on_drag_start(unit: Piece):
 	reserveGoldCost(unit.workerInfo.unitStats.cost)
 
@@ -58,11 +67,6 @@ func _on_drag_drop(_starting_position: Vector2, _unit: Piece):
 
 func _on_drag_cancel(_starting_location: Vector2) -> void:
 	cancelReservation()
-
-func toggleAffordableUnits(currentGold: int) -> void:
-	for unit: Piece in grid.values():
-		if unit:
-			unit.drag_and_drop.enabled = unit.workerInfo.unitStats.cost < currentGold
 
 func _on_resource_change(currentResources: ResourceProduction):
 	toggleAffordableUnits(currentResources.gold)
