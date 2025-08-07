@@ -36,6 +36,8 @@ func add_piece(location: Vector2i, piece: Node) -> void:
 func remove(location: Vector2i) -> void:
 	var unit = (grid[location] as Piece)
 	unit.drag_and_drop.disconnect("drag_started", self._on_drag_start.bind(unit))
+	unit.drag_and_drop.disconnect("drag_dropped", self._on_drag_drop.bind(unit))
+	unit.drag_and_drop.disconnect("drag_canceled", self._on_drag_cancel)
 	super.remove(location)
 
 func reserveGoldCost(reserveAmount: int):
