@@ -37,6 +37,7 @@ func _on_drag_dropped(starting_position: Vector2, piece: Piece):
 	var hasStartingBoard: bool = startingGameBoardIndex != POSITION_NOT_FOUND
 	
 	if startingGameBoardIndex == endingGameBoardIndex and startingTileLocation == endingTileLocation:
+		piece.global_position = starting_position
 		return
 
 	if hasStartingBoard:

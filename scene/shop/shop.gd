@@ -41,10 +41,8 @@ func remove(location: Vector2i) -> void:
 	unit.drag_and_drop.disconnect("drag_canceled", self._on_drag_cancel)
 	super.remove(location)
 
-func reserveGoldCost(reserveAmount: int):
-	var reserveResources = ResourceProduction.new()
-	reserveResources.gold = reserveAmount
-	resourceHoldNumber = productionManager.createResourceHold(reserveResources)
+func reserveResourceCost(reserveAmount: ResourceProduction) -> void:
+	resourceHoldNumber = productionManager.createResourceHold(reserveAmount)
 
 func cancelReservation() -> void:
 	productionManager.cancelHold(resourceHoldNumber)
@@ -56,13 +54,15 @@ func toggleAffordableUnits(_currentGold: int) -> void:
 			unit.drag_and_drop.enabled = canAfford(unit)
 
 func canAfford(unit: Piece) -> bool:
-	return unit.workerInfo.unitStats.cost <= productionManager.totalYields.gold
+	return unit.workerInfo.unitStats.cost.isLessThanEqualTo(productionManager.totalYields)
 
 func _on_drag_start(unit: Piece):
-	reserveGoldCost(unit.workerInfo.unitStats.cost)
+	reserveResourceCost(unit.workerInfo.unitStats.cost)
 
-func _on_drag_drop(_starting_position: Vector2, _unit: Piece):
-	# Need to handle dropping it back on the shop
+func _on_drag_drop(_starting_position: Vector2, unit: Piece):
+	if is_on_grid(unit.global_position):
+		cancelReservation()
+		return
 	productionManager.processHold(resourceHoldNumber)
 
 func _on_drag_cancel(_starting_location: Vector2) -> void:

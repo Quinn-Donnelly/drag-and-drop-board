@@ -20,5 +20,8 @@ func subtractFromResources(resources: ResourceProduction) -> void:
 	research -= resources.research
 	gold -= resources.gold
 
+func isLessThanEqualTo(resource: ResourceProduction) -> bool:
+	return water <= resource.water && wheat <= resource.wheat && research <= resource.research && gold <= resource.gold
+
 func _to_string() -> String:
 	return "water: %d, wheat: %d, research: %d, gold: %d" % [water, wheat, research, gold]
