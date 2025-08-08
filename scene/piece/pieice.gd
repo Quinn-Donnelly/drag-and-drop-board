@@ -4,7 +4,7 @@ extends Area2D
 
 
 @export var workerInfo: WorkerInfo
-@export var production: ResourceProduction
+var production: ResourceProduction
 @onready var drag_and_drop = $DragAndDrop
 @onready var sprite = $Sprite2D
 
