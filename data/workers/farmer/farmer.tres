@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="WorkerInfo" load_steps=8 format=3 uid="uid://befsimtyfwlpe"]
+
+[ext_resource type="PackedScene" uid="uid://bwxorb6l0nxnc" path="res://scene/piece/piece.tscn" id="1_e6exm"]
+[ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="1_lydpt"]
+[ext_resource type="Script" uid="uid://c8sayuif726ek" path="res://data/resourceProduction/resource_production.gd" id="2_e6exm"]
+[ext_resource type="Texture2D" uid="uid://4l72qayb2pw1" path="res://art/Tiles/tile_0085.png" id="3_41d0i"]
+[ext_resource type="Script" uid="uid://cnvyvtthiqgs8" path="res://data/unit_stats/unit_stats.gd" id="3_ra1r1"]
+
+[sub_resource type="Resource" id="Resource_41d0i"]
+script = ExtResource("2_e6exm")
+water = 0
+wheat = 1
+research = 0
+gold = 0
+metadata/_custom_type_script = "uid://c8sayuif726ek"
+
+[sub_resource type="Resource" id="Resource_1sinb"]
+script = ExtResource("3_ra1r1")
+production = SubResource("Resource_41d0i")
+cost = 3
+metadata/_custom_type_script = "uid://cnvyvtthiqgs8"
+
+[resource]
+script = ExtResource("1_lydpt")
+scene = ExtResource("1_e6exm")
+unitStats = SubResource("Resource_1sinb")
+unitSprite = ExtResource("3_41d0i")
