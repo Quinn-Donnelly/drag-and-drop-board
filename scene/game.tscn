@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://rc3uxvgheywh"]
+[gd_scene load_steps=14 format=3 uid="uid://rc3uxvgheywh"]
 
 [ext_resource type="PackedScene" uid="uid://43jma24jye2w" path="res://scene/game_board/game_board.tscn" id="1_5kiuu"]
 [ext_resource type="PackedScene" uid="uid://bwxorb6l0nxnc" path="res://scene/piece/piece.tscn" id="2_dbls1"]
+[ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="2_sng2h"]
 [ext_resource type="Script" uid="uid://dw3igmuiwnk01" path="res://component/piece_mover.gd" id="3_33cqm"]
+[ext_resource type="Resource" uid="uid://befsimtyfwlpe" path="res://data/workers/farmer/farmer.tres" id="4_5g16k"]
 [ext_resource type="Script" uid="uid://c8sayuif726ek" path="res://data/resourceProduction/resource_production.gd" id="4_17rxn"]
 [ext_resource type="Script" uid="uid://c4w4nfioukxqp" path="res://component/game_manager.gd" id="4_p1ry8"]
 [ext_resource type="Resource" uid="uid://cfhb67cdyg2fu" path="res://data/workers/wizard/wizard.tres" id="4_yq8tf"]
@@ -24,6 +26,7 @@ metadata/_custom_type_script = "uid://c8sayuif726ek"
 [node name="Shop" parent="." node_paths=PackedStringArray("gameManager", "pieceMover", "productionManager") instance=ExtResource("8_ll5lq")]
 position = Vector2(0, 230)
 scale = Vector2(3, 3)
+available = Array[ExtResource("2_sng2h")]([ExtResource("4_yq8tf"), ExtResource("4_5g16k")])
 gameManager = NodePath("../GameManager")
 pieceMover = NodePath("../PieceMover")
 productionManager = NodePath("../GameManager/ProductionManager")
