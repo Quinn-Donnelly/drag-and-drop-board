@@ -10,7 +10,9 @@ var totalYields: ResourceProduction = ResourceProduction.new()
 
 func gatherYields() -> void:
 	for board in productionBoards:
-		addYieldToTotal(board.getBoardYield())
+		var resourceInfo = board.getBoardYield()
+		addYieldToTotal(resourceInfo[0])
+		processHold(createResourceHold(resourceInfo[1]))
 
 func addYieldToTotal(resources: ResourceProduction):
 	totalYields.addToResources(resources)

@@ -36,13 +36,16 @@ func remove(location: Vector2i) -> void:
 	grid[location].tree_exited.disconnect(_on_tree_exited)
 	grid[location] = null
 
-func getBoardYield() -> ResourceProduction:
+# first element is the positive yield the second is the cost
+func getBoardYield() -> Array[ResourceProduction]:
 	var totalYields: ResourceProduction = ResourceProduction.new()
+	var totalCost: ResourceProduction = ResourceProduction.new()
 	for location in grid:
 		var piece: Piece = grid[location] as Piece
 		if piece:
 			totalYields.addToResources(piece.getYield())
-	return totalYields
+			totalCost.addToResources(piece.getCost())
+	return [totalYields, totalCost]
 
 func _on_tree_exited(location: Vector2i, _piece: Node) -> void:
 	grid[location] = null

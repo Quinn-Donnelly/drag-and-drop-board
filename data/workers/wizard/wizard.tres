@@ -19,7 +19,7 @@ script = ExtResource("1_86lqx")
 water = 0
 wheat = 0
 research = 5
-gold = 1
+gold = 0
 metadata/_custom_type_script = "uid://c8sayuif726ek"
 
 [sub_resource type="Resource" id="Resource_myyxa"]

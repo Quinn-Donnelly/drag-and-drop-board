@@ -16,3 +16,6 @@ func _ready() -> void:
 
 func getYield() -> ResourceProduction:
 	return production
+
+func getCost() -> ResourceProduction:
+	return workerInfo.unitStats.cost
