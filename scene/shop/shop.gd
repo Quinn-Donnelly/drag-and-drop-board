@@ -1,24 +1,33 @@
 class_name Shop
 extends PieceGrid
 
-@export var available: Array[WorkerInfo]
+@export var availableShopWorkers: Array[WorkerInfo]
+@export var startingCapableUnits: Array[WorkerInfo]
 @export var gameManager: GameManager
 #TODO: refactor this to be a spawner or something
 @export var pieceMover: PieceMover
 @export var productionManager: ProductionManager
+@export var shopRerollInterval: int
+
 
 var resourceHoldNumber: int
 
 func _ready() -> void:
 	gameManager.connect("start_game", self._on_game_start)
+	gameManager.gameClock.connect("game_tick", self._on_game_tick)
 	productionManager.connect("current_production_update", self._on_resource_change)
 	super._ready()
 
-func setRandom() -> void: 
+func setRandom(allowed: Array[WorkerInfo]) -> void: 
 	for location in grid:
-		createAndSet(location, available.pick_random())
+		createAndSet(location, allowed.pick_random(), true)
 
-func createAndSet(location: Vector2i, workerInfo: WorkerInfo) -> void:
+func createAndSet(location: Vector2i, workerInfo: WorkerInfo, removeOccupied: bool) -> void:
+	if removeOccupied and is_occupied(location):
+		var toBeRemoved: Piece = grid[location]
+		remove(location)
+		toBeRemoved.queue_free()
+
 	var item = workerInfo.scene.instantiate() as Piece
 	item.workerInfo = workerInfo
 	add_child(item)
@@ -71,6 +80,10 @@ func _on_drag_cancel(_starting_location: Vector2) -> void:
 func _on_resource_change(currentResources: ResourceProduction):
 	toggleAffordableUnits(currentResources.gold)
 
+func _on_game_tick(time: int) -> void:
+	if time % shopRerollInterval == 0:
+		setRandom(availableShopWorkers)
+
 func _on_game_start() -> void:
-	setRandom()
+	setRandom(startingCapableUnits)
 	

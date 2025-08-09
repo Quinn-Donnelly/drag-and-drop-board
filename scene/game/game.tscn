@@ -1,0 +1,84 @@
+[gd_scene load_steps=15 format=3 uid="uid://rc3uxvgheywh"]
+
+[ext_resource type="PackedScene" uid="uid://bgb7qaebau7c2" path="res://scene/shop/shop.tscn" id="1_c7fbu"]
+[ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="2_8u7u6"]
+[ext_resource type="Resource" uid="uid://cfhb67cdyg2fu" path="res://data/workers/wizard/wizard.tres" id="3_v4hye"]
+[ext_resource type="Resource" uid="uid://befsimtyfwlpe" path="res://data/workers/farmer/farmer.tres" id="4_yv2ml"]
+[ext_resource type="PackedScene" uid="uid://43jma24jye2w" path="res://scene/game_board/game_board.tscn" id="5_2rwqa"]
+[ext_resource type="Resource" uid="uid://ciuyko3ek657l" path="res://data/workers/merchant/merchant.tres" id="5_v4hye"]
+[ext_resource type="Script" uid="uid://dw3igmuiwnk01" path="res://component/piece_mover.gd" id="6_o100e"]
+[ext_resource type="Script" uid="uid://c4w4nfioukxqp" path="res://scene/game/game_manager.gd" id="7_okn60"]
+[ext_resource type="Script" uid="uid://dd70mesh661o4" path="res://scene/game/game_clock.gd" id="8_oixtr"]
+[ext_resource type="Script" uid="uid://c30ungfxamr1q" path="res://scene/game/production_manager.gd" id="9_5wlrd"]
+[ext_resource type="Script" uid="uid://qe8gpqufkil6" path="res://scene/game/start_game_seed_manager.gd" id="10_8u7u6"]
+[ext_resource type="Script" uid="uid://ddbe1ctsui0x2" path="res://scene/ui/ui.gd" id="10_fkm2x"]
+[ext_resource type="Script" uid="uid://c8sayuif726ek" path="res://data/resourceProduction/resource_production.gd" id="12_yv2ml"]
+
+[sub_resource type="Resource" id="Resource_2rwqa"]
+script = ExtResource("12_yv2ml")
+water = 0
+wheat = 1
+research = 0
+gold = 0
+metadata/_custom_type_script = "uid://c8sayuif726ek"
+
+[node name="Game" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("7_okn60")
+
+[node name="GameClock" type="Node" parent="GameManager"]
+script = ExtResource("8_oixtr")
+
+[node name="GameTimer" type="Timer" parent="GameManager/GameClock"]
+autostart = true
+
+[node name="ProductionManager" type="Node" parent="GameManager" node_paths=PackedStringArray("productionBoards")]
+script = ExtResource("9_5wlrd")
+productionBoards = [NodePath("../../GameBoard")]
+
+[node name="GameStartDelay" type="Timer" parent="GameManager"]
+one_shot = true
+autostart = true
+
+[node name="StartGameSeedManager" type="Node" parent="GameManager"]
+script = ExtResource("10_8u7u6")
+startingResources = SubResource("Resource_2rwqa")
+
+[node name="Shop" parent="." node_paths=PackedStringArray("gameManager", "pieceMover", "productionManager") instance=ExtResource("1_c7fbu")]
+position = Vector2(0, 230)
+scale = Vector2(3, 3)
+availableShopWorkers = Array[ExtResource("2_8u7u6")]([ExtResource("4_yv2ml"), ExtResource("3_v4hye"), ExtResource("5_v4hye")])
+startingCapableUnits = Array[ExtResource("2_8u7u6")]([ExtResource("4_yv2ml")])
+gameManager = NodePath("../GameManager")
+pieceMover = NodePath("../PieceMover")
+productionManager = NodePath("../GameManager/ProductionManager")
+shopRerollInterval = 10
+
+[node name="GameBoard" parent="." instance=ExtResource("5_2rwqa")]
+position = Vector2(455, 128)
+scale = Vector2(3, 3)
+metadata/_edit_lock_ = true
+
+[node name="PieceMover" type="Node" parent="." node_paths=PackedStringArray("boards")]
+script = ExtResource("6_o100e")
+boards = [NodePath("../GameBoard"), NodePath("../Shop")]
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("gameManager")]
+script = ExtResource("10_fkm2x")
+gameManager = NodePath("../GameManager")
+
+[node name="GameClockLabel" type="Label" parent="UI"]
+offset_right = 40.0
+offset_bottom = 23.0
+metadata/_edit_lock_ = true
+
+[node name="CurrentResourceLabel" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1.0
+offset_bottom = 23.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0

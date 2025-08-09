@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WorkerInfo" load_steps=9 format=3 uid="uid://ciuyko3ek657l"]
+
+[ext_resource type="PackedScene" uid="uid://bwxorb6l0nxnc" path="res://scene/piece/piece.tscn" id="1_ow7qw"]
+[ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="2_lkgv6"]
+[ext_resource type="Texture2D" uid="uid://0rmkxhfahk5h" path="res://art/Tiles/tile_0112.png" id="3_rdfvr"]
+[ext_resource type="Script" uid="uid://c8sayuif726ek" path="res://data/resourceProduction/resource_production.gd" id="4_8ro86"]
+[ext_resource type="Script" uid="uid://cnvyvtthiqgs8" path="res://data/unit_stats/unit_stats.gd" id="5_xgpry"]
+
+[sub_resource type="Resource" id="Resource_dhvmc"]
+script = ExtResource("4_8ro86")
+water = 0
+wheat = 5
+research = 10
+gold = 0
+metadata/_custom_type_script = "uid://c8sayuif726ek"
+
+[sub_resource type="Resource" id="Resource_8pd81"]
+script = ExtResource("4_8ro86")
+water = 0
+wheat = 0
+research = 0
+gold = 5
+metadata/_custom_type_script = "uid://c8sayuif726ek"
+
+[sub_resource type="Resource" id="Resource_3rk7l"]
+script = ExtResource("5_xgpry")
+production = SubResource("Resource_8pd81")
+cost = SubResource("Resource_dhvmc")
+metadata/_custom_type_script = "uid://cnvyvtthiqgs8"
+
+[resource]
+script = ExtResource("2_lkgv6")
+scene = ExtResource("1_ow7qw")
+unitStats = SubResource("Resource_3rk7l")
+unitSprite = ExtResource("3_rdfvr")
