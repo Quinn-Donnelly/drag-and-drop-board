@@ -38,14 +38,56 @@ func remove(location: Vector2i) -> void:
 
 # first element is the positive yield the second is the cost
 func getBoardYield() -> Array[ResourceProduction]:
+	var yieldMods: Dictionary[Vector2i, Array]
+	yieldMods[Vector2i(0,0)] = [ResourceProduction.new(), ResourceProduction.new()]
+	for location in grid:
+		var piece: Piece = grid[location] as Piece
+		if piece and piece.isModifier():
+			var pieceMod: Dictionary[Vector2i, Array] = piece.getModifierEffects()
+			yieldMods = dictionaryAddMerge(yieldMods, pieceMod)
+
 	var totalYields: ResourceProduction = ResourceProduction.new()
 	var totalCost: ResourceProduction = ResourceProduction.new()
 	for location in grid:
 		var piece: Piece = grid[location] as Piece
 		if piece:
-			totalYields.addToResources(piece.getYield())
+			var bonusYieldMod: ResourceProduction = ResourceProduction.new()
+			var multYieldMod: ResourceProduction = ResourceProduction.new()
+			# TODO: clean this up
+			multYieldMod.water = 1
+			multYieldMod.wheat = 1 
+			multYieldMod.gold = 1
+			multYieldMod.research = 1
+			
+			if yieldMods.has(location):
+				bonusYieldMod = yieldMods[location][0]
+				multYieldMod = yieldMods[location][1]
+			var toAdd = piece.getYield()
+			toAdd.addToResources(bonusYieldMod)
+			toAdd.multiplyResources(multYieldMod)
+			totalYields.addToResources(toAdd)
 			totalCost.addToResources(piece.getCost())
 	return [totalYields, totalCost]
+
+func dictionaryAddMerge(first: Dictionary[Vector2i, Array], second: Dictionary[Vector2i, Array]) -> Dictionary[Vector2i, Array]:
+	var firstKeys = first.keys()
+	var secondKeys = second.keys()
+	var output: Dictionary[Vector2i, Array]
+	for key in firstKeys:
+		output[key] = [ResourceProduction.new(), ResourceProduction.new()]
+	for key in secondKeys:
+		if not output.has(key):
+			output[key] = [ResourceProduction.new(), ResourceProduction.new()]
+	
+	for gridLocation in output:
+		if first.has(gridLocation):
+			output[gridLocation][0].addToResources(first[gridLocation][0])
+			output[gridLocation][1].addToResources(first[gridLocation][1])
+		if second.has(gridLocation):
+			output[gridLocation][0].addToResources(second[gridLocation][0])
+			output[gridLocation][1].addToResources(second[gridLocation][1])
+
+	return output
 
 func _on_tree_exited(location: Vector2i, _piece: Node) -> void:
 	grid[location] = null

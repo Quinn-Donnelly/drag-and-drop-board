@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WorkerInfo" load_steps=9 format=3 uid="uid://befsimtyfwlpe"]
+[gd_resource type="Resource" script_class="WorkerInfo" load_steps=11 format=3 uid="uid://befsimtyfwlpe"]
 
 [ext_resource type="PackedScene" uid="uid://bwxorb6l0nxnc" path="res://scene/piece/piece.tscn" id="1_e6exm"]
 [ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="1_lydpt"]
@@ -14,6 +14,22 @@ research = 0
 gold = 0
 metadata/_custom_type_script = "uid://c8sayuif726ek"
 
+[sub_resource type="Resource" id="Resource_4t5o7"]
+script = ExtResource("2_e6exm")
+water = 0
+wheat = 5
+research = 0
+gold = 0
+metadata/_custom_type_script = "uid://c8sayuif726ek"
+
+[sub_resource type="Resource" id="Resource_vrvxx"]
+script = ExtResource("2_e6exm")
+water = 1
+wheat = 1
+research = 1
+gold = 1
+metadata/_custom_type_script = "uid://c8sayuif726ek"
+
 [sub_resource type="Resource" id="Resource_41d0i"]
 script = ExtResource("2_e6exm")
 water = 0
@@ -26,6 +42,7 @@ metadata/_custom_type_script = "uid://c8sayuif726ek"
 script = ExtResource("3_ra1r1")
 production = SubResource("Resource_41d0i")
 cost = SubResource("Resource_ra1r1")
+modifier = Array[ExtResource("2_e6exm")]([SubResource("Resource_4t5o7"), SubResource("Resource_vrvxx")])
 metadata/_custom_type_script = "uid://cnvyvtthiqgs8"
 
 [resource]
