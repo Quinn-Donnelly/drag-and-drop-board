@@ -14,13 +14,8 @@ var resourceHoldNumber: int
 
 func _ready() -> void:
 	gameManager.connect("start_game", self._on_game_start)
-	gameManager.gameClock.connect("game_tick", self._on_game_tick)
 	productionManager.connect("current_production_update", self._on_resource_change)
 	super._ready()
-
-func setRandom(allowed: Array[WorkerInfo]) -> void: 
-	for location in grid:
-		createAndSet(location, allowed.pick_random(), true)
 
 func createAndSet(location: Vector2i, workerInfo: WorkerInfo, removeOccupied: bool) -> void:
 	if removeOccupied and is_occupied(location):
@@ -34,6 +29,15 @@ func createAndSet(location: Vector2i, workerInfo: WorkerInfo, removeOccupied: bo
 	pieceMover.startListening(item)
 	item.global_position = get_global_tile_placement_position(location)
 	add_piece(location, item)
+
+# Sets the piece at the next available spot in shot, returns false if none available
+# @returns bool If the piece was set in the shop
+func add_piece_to_next_slot(unit: WorkerInfo) -> bool:
+	for location in grid:
+		if grid[location] == null:
+			createAndSet(location, unit, false)
+			return true
+	return false
 
 func add_piece(location: Vector2i, piece: Node) -> void:
 	var unit = piece as Piece
@@ -65,14 +69,20 @@ func toggleAffordableUnits(_currentGold: int) -> void:
 func canAfford(unit: Piece) -> bool:
 	return unit.workerInfo.unitStats.cost.isLessThanEqualTo(productionManager.totalYields)
 
+func unlockOpeningPieces() -> void:
+	for unit in startingCapableUnits:
+		add_piece_to_next_slot(unit)
+
 func _on_drag_start(unit: Piece):
 	reserveResourceCost(unit.workerInfo.unitStats.cost)
 
-func _on_drag_drop(_starting_position: Vector2, unit: Piece):
+func _on_drag_drop(starting_position: Vector2, unit: Piece):
 	if is_on_grid(unit.global_position):
 		cancelReservation()
 		return
 	productionManager.processHold(resourceHoldNumber)
+	# spawn new one
+	createAndSet(local_to_map(to_local(starting_position)), unit.workerInfo, false)
 
 func _on_drag_cancel(_starting_location: Vector2) -> void:
 	cancelReservation()
@@ -80,10 +90,5 @@ func _on_drag_cancel(_starting_location: Vector2) -> void:
 func _on_resource_change(currentResources: ResourceProduction):
 	toggleAffordableUnits(currentResources.gold)
 
-func _on_game_tick(time: int) -> void:
-	if time % shopRerollInterval == 0:
-		setRandom(availableShopWorkers)
-
 func _on_game_start() -> void:
-	setRandom(startingCapableUnits)
-	
+	unlockOpeningPieces()	
