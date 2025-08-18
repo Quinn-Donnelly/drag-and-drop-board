@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func createAndSet(location: Vector2i, workerInfo: WorkerInfo, removeOccupied: bool) -> void:
 	if removeOccupied and is_occupied(location):
-		var toBeRemoved: Piece = grid[location]
+		var toBeRemoved: Piece = grid[location].piece
 		remove(location)
 		toBeRemoved.queue_free()
 
@@ -34,7 +34,7 @@ func createAndSet(location: Vector2i, workerInfo: WorkerInfo, removeOccupied: bo
 # @returns bool If the piece was set in the shop
 func add_piece_to_next_slot(unit: WorkerInfo) -> bool:
 	for location in grid:
-		if grid[location] == null:
+		if not is_occupied(location):
 			createAndSet(location, unit, false)
 			return true
 	return false
@@ -48,7 +48,7 @@ func add_piece(location: Vector2i, piece: Node) -> void:
 	super.add_piece(location, piece)
 
 func remove(location: Vector2i) -> void:
-	var unit = (grid[location] as Piece)
+	var unit = (grid[location].piece as Piece)
 	unit.drag_and_drop.disconnect("drag_started", self._on_drag_start.bind(unit))
 	unit.drag_and_drop.disconnect("drag_dropped", self._on_drag_drop.bind(unit))
 	unit.drag_and_drop.disconnect("drag_canceled", self._on_drag_cancel)
@@ -62,9 +62,11 @@ func cancelReservation() -> void:
 	resourceHoldNumber = 0
 
 func toggleAffordableUnits(_currentGold: int) -> void:
-	for unit: Piece in grid.values():
+	for unit: GridEntry in grid.values():
 		if unit:
-			unit.drag_and_drop.enabled = canAfford(unit)
+			var piece = unit.piece as Piece
+			if piece:
+				piece.drag_and_drop.enabled = canAfford(piece)
 
 func canAfford(unit: Piece) -> bool:
 	return unit.workerInfo.unitStats.cost.isLessThanEqualTo(productionManager.totalYields)
