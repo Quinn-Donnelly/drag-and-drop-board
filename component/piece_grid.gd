@@ -30,6 +30,9 @@ func get_tile(location: Vector2) -> Vector2i:
 func is_occupied(location: Vector2i) -> bool:
 	return grid[location].piece != null
 
+func is_location_enabled(location: Vector2i) -> bool:
+	return grid[location].enabled
+
 func add_piece(location: Vector2i, piece: Node) -> void:
 	assert(grid[location].piece  == null, "Grid position is occupied")
 	grid[location].piece = piece

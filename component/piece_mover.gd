@@ -40,6 +40,10 @@ func _on_drag_dropped(starting_position: Vector2, piece: Piece):
 		piece.global_position = starting_position
 		return
 
+	if not boards[endingGameBoardIndex].is_location_enabled(endingTileLocation):
+		piece.global_position = starting_position
+		return
+
 	if hasStartingBoard:
 		boards[startingGameBoardIndex].remove(startingTileLocation)
 	
