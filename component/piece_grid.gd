@@ -4,6 +4,8 @@ extends TileMapLayer
 @export var size: Vector2i
 @export var spriteOffset: Vector2
 @export var initialEnabled: Array[Vector2i]
+@export var lockedSpriteAtlasCords: Vector2i
+@export var unlockedSpriteAtlasCords: Vector2i
 
 class GridEntry:
 	var piece: Node
@@ -17,9 +19,11 @@ var grid: Dictionary[Vector2i, GridEntry]
 func _ready() -> void:
 	for x in size.x:
 		for y in size.y:
-			grid[Vector2i(x, y)] = GridEntry.new(null, false)
+			var tile = Vector2i(x, y)
+			grid[tile] = GridEntry.new(null, false)
+			set_cell(tile, 0, lockedSpriteAtlasCords)
 	for location in initialEnabled:
-		grid[location].enabled = true
+		unlockSpace(location)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("select") and is_on_grid(event.position):
@@ -66,6 +70,7 @@ func getBoardYield() -> Array[ResourceProduction]:
 
 func unlockSpace(location: Vector2i) -> void: 
 	grid[location].enabled = true
+	self.set_cell(location, 0, unlockedSpriteAtlasCords)
 
 func _on_tree_exited(location: Vector2i, _piece: Node) -> void:
 	grid[location].piece = null
