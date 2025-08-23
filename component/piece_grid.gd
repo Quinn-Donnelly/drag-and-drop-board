@@ -21,6 +21,9 @@ func _ready() -> void:
 	for location in initialEnabled:
 		grid[location].enabled = true
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("select") and is_on_grid(event.position):
+		unlockSpace(get_tile(event.position))
 
 func is_on_grid(location: Vector2) -> bool:
 	return get_cell_source_id(get_tile(location)) != -1	
@@ -60,6 +63,9 @@ func getBoardYield() -> Array[ResourceProduction]:
 			totalYields.addToResources(piece.getYield())
 			totalCost.addToResources(piece.getCost())
 	return [totalYields, totalCost]
+
+func unlockSpace(location: Vector2i) -> void: 
+	grid[location].enabled = true
 
 func _on_tree_exited(location: Vector2i, _piece: Node) -> void:
 	grid[location].piece = null
