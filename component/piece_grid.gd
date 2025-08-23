@@ -3,6 +3,9 @@ extends TileMapLayer
 
 @export var size: Vector2i
 @export var spriteOffset: Vector2
+@export var initialEnabled: Array[Vector2i]
+@export var lockedSpriteAtlasCords: Vector2i
+@export var unlockedSpriteAtlasCords: Vector2i
 
 class GridEntry:
 	var piece: Node
@@ -16,7 +19,15 @@ var grid: Dictionary[Vector2i, GridEntry]
 func _ready() -> void:
 	for x in size.x:
 		for y in size.y:
-			grid[Vector2i(x, y)] = GridEntry.new(null, true)
+			var tile = Vector2i(x, y)
+			grid[tile] = GridEntry.new(null, false)
+			set_cell(tile, 0, lockedSpriteAtlasCords)
+	for location in initialEnabled:
+		unlockSpace(location)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("select") and is_on_grid(event.position):
+		unlockSpace(get_tile(event.position))
 
 func is_on_grid(location: Vector2) -> bool:
 	return get_cell_source_id(get_tile(location)) != -1	
@@ -29,6 +40,9 @@ func get_tile(location: Vector2) -> Vector2i:
 
 func is_occupied(location: Vector2i) -> bool:
 	return grid[location].piece != null
+
+func is_location_enabled(location: Vector2i) -> bool:
+	return grid[location].enabled
 
 func add_piece(location: Vector2i, piece: Node) -> void:
 	assert(grid[location].piece  == null, "Grid position is occupied")
@@ -53,6 +67,10 @@ func getBoardYield() -> Array[ResourceProduction]:
 			totalYields.addToResources(piece.getYield())
 			totalCost.addToResources(piece.getCost())
 	return [totalYields, totalCost]
+
+func unlockSpace(location: Vector2i) -> void: 
+	grid[location].enabled = true
+	self.set_cell(location, 0, unlockedSpriteAtlasCords)
 
 func _on_tree_exited(location: Vector2i, _piece: Node) -> void:
 	grid[location].piece = null
