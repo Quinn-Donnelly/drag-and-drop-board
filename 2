@@ -18,8 +18,6 @@ func _ready() -> void:
 	for x in size.x:
 		for y in size.y:
 			grid[Vector2i(x, y)] = GridEntry.new(null, false)
-	for location in initialEnabled:
-		grid[location].enabled = true
 
 
 func is_on_grid(location: Vector2) -> bool:

@@ -58,6 +58,7 @@ shopRerollInterval = 10
 [node name="GameBoard" parent="." instance=ExtResource("5_2rwqa")]
 position = Vector2(455, 128)
 scale = Vector2(3, 3)
+initialEnabled = Array[Vector2i]([Vector2i(0, 0)])
 metadata/_edit_lock_ = true
 
 [node name="PieceMover" type="Node" parent="." node_paths=PackedStringArray("boards")]
