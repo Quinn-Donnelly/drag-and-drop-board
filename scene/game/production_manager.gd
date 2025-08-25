@@ -2,11 +2,17 @@ class_name ProductionManager
 extends Node
 
 signal current_production_update
+signal round_goal_paid
 
+@export var userUi: UserUi
 @export var productionBoards: Array[PieceGrid]
+@onready var roundManager: RoundManager = $"../RoundManager"
 var resourceHolds: Dictionary[int, ResourceProduction]
 
 var totalYields: ResourceProduction = ResourceProduction.new()
+
+func _ready() -> void:
+	userUi.attempt_pay_round.connect(self._on_attempt_pay)
 
 func gatherYields() -> void:
 	for board in productionBoards:
@@ -36,3 +42,8 @@ func cancelHold(holdNumber: int) -> void:
 	totalYields.addToResources(refund)
 	current_production_update.emit(totalYields)
 	resourceHolds.erase(holdNumber)
+
+func _on_attempt_pay() -> void:
+	if roundManager.getRoundGoal().isLessThanEqualTo(totalYields):
+		round_goal_paid.emit()
+

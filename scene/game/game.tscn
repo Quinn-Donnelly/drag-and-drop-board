@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://rc3uxvgheywh"]
+[gd_scene load_steps=17 format=3 uid="uid://rc3uxvgheywh"]
 
 [ext_resource type="PackedScene" uid="uid://bgb7qaebau7c2" path="res://scene/shop/shop.tscn" id="1_c7fbu"]
 [ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="2_8u7u6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://befsimtyfwlpe" path="res://data/workers/farmer/farmer.tres" id="4_yv2ml"]
 [ext_resource type="PackedScene" uid="uid://43jma24jye2w" path="res://scene/game_board/game_board.tscn" id="5_2rwqa"]
 [ext_resource type="Resource" uid="uid://ciuyko3ek657l" path="res://data/workers/merchant/merchant.tres" id="5_v4hye"]
+[ext_resource type="Script" uid="uid://ceihti8ddhshb" path="res://scene/game/round_manager.gd" id="6_2rwqa"]
 [ext_resource type="Script" uid="uid://dw3igmuiwnk01" path="res://component/piece_mover.gd" id="6_o100e"]
 [ext_resource type="Script" uid="uid://c4w4nfioukxqp" path="res://scene/game/game_manager.gd" id="7_okn60"]
 [ext_resource type="Script" uid="uid://dd70mesh661o4" path="res://scene/game/game_clock.gd" id="8_oixtr"]
@@ -22,6 +23,14 @@ research = 0
 gold = 0
 metadata/_custom_type_script = "uid://c8sayuif726ek"
 
+[sub_resource type="Resource" id="Resource_o100e"]
+script = ExtResource("12_yv2ml")
+water = 0
+wheat = 10
+research = 0
+gold = 0
+metadata/_custom_type_script = "uid://c8sayuif726ek"
+
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" type="Node" parent="."]
@@ -33,8 +42,9 @@ script = ExtResource("8_oixtr")
 [node name="GameTimer" type="Timer" parent="GameManager/GameClock"]
 autostart = true
 
-[node name="ProductionManager" type="Node" parent="GameManager" node_paths=PackedStringArray("productionBoards")]
+[node name="ProductionManager" type="Node" parent="GameManager" node_paths=PackedStringArray("userUi", "productionBoards")]
 script = ExtResource("9_5wlrd")
+userUi = NodePath("../../UI")
 productionBoards = [NodePath("../../GameBoard")]
 
 [node name="GameStartDelay" type="Timer" parent="GameManager"]
@@ -44,6 +54,10 @@ autostart = true
 [node name="StartGameSeedManager" type="Node" parent="GameManager"]
 script = ExtResource("10_8u7u6")
 startingResources = SubResource("Resource_2rwqa")
+
+[node name="RoundManager" type="Node" parent="GameManager"]
+script = ExtResource("6_2rwqa")
+initialRoundGoal = SubResource("Resource_o100e")
 
 [node name="Shop" parent="." node_paths=PackedStringArray("gameManager", "pieceMover", "productionManager") instance=ExtResource("1_c7fbu")]
 position = Vector2(0, 230)
@@ -83,3 +97,15 @@ offset_bottom = 23.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
+
+[node name="PayRoundGoalButton" type="Button" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -130.0
+offset_top = 40.0
+offset_bottom = 71.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Pay Round Goal"
