@@ -9,6 +9,7 @@ signal end_game
 @onready var productionManager: ProductionManager = $ProductionManager
 @onready var gameStartDelay: Timer = $GameStartDelay
 @onready var gameStartManager: StartGameSeedManager = $StartGameSeedManager
+@onready var roundManager: RoundManager = $RoundManager
 
 func _ready() -> void:
 	gameClock.connect("game_tick", self._on_game_clock_tick)
