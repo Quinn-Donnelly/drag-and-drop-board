@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://rc3uxvgheywh"]
+[gd_scene load_steps=18 format=3 uid="uid://rc3uxvgheywh"]
 
 [ext_resource type="PackedScene" uid="uid://bgb7qaebau7c2" path="res://scene/shop/shop.tscn" id="1_c7fbu"]
 [ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="2_8u7u6"]
@@ -30,6 +30,9 @@ wheat = 10
 research = 0
 gold = 0
 metadata/_custom_type_script = "uid://c8sayuif726ek"
+
+[sub_resource type="LabelSettings" id="LabelSettings_2rwqa"]
+font_size = 12
 
 [node name="Game" type="Node2D"]
 
@@ -108,4 +111,16 @@ offset_bottom = 71.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
+disabled = true
 text = "Pay Round Goal"
+
+[node name="ComingRoundGoals" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 77.0
+offset_bottom = 100.0
+grow_horizontal = 0
+label_settings = SubResource("LabelSettings_2rwqa")
+horizontal_alignment = 2
