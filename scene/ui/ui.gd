@@ -9,22 +9,26 @@ signal attempt_pay_round
 @onready var payRoundGoalButton: Button = $PayRoundGoalButton
 @onready var comingRoundLabel: Label = $ComingRoundGoals
 @onready var currentRoundLabel: Label = $CurrentRoundLabel
+@onready var gameWinMessage: Label = $GameWinMessage
 
 func _ready() -> void:
 	gameManager.start_game.connect(self._on_start_game)
 	gameManager.gameClock.connect("game_tick", self._on_clock_update)
 	gameManager.productionManager.connect("current_production_update", self._on_current_production_update)
+	gameManager.end_game.connect(self._on_game_end)
 	payRoundGoalButton.pressed.connect(self._on_pay_round_button)
 	gameManager.roundManager.connect("round_goal_update", self._on_round_goal_update)
 	payRoundGoalButton.hide()
 	comingRoundLabel.hide()
 	currentRoundLabel.hide()
+	gameWinMessage.hide()
 
 func _on_start_game() -> void:
 	payRoundGoalButton.disabled = false
 	payRoundGoalButton.show()
 	comingRoundLabel.show()
 	currentRoundLabel.show()
+	gameWinMessage.hide()
 
 func _on_clock_update(gameTime: int) -> void:
 	gameClockLabel.text = "Game Time: %d" % gameTime
@@ -45,3 +49,6 @@ func _on_round_goal_update(index: int, listGoals: Array[ResourceProduction]) -> 
 		message += "Water: %d | Wheat: %d | Research: %d | Gold: %d\n" % [listGoals[i].water, listGoals[i].wheat, listGoals[i].research, listGoals[i].gold]
 	comingRoundLabel.text = message
 	currentRoundLabel.text = currentRoundMessage
+
+func _on_game_end() -> void:
+	gameWinMessage.show()

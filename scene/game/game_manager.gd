@@ -14,13 +14,18 @@ signal end_game
 func _ready() -> void:
 	gameClock.connect("game_tick", self._on_game_clock_tick)
 	gameStartDelay.connect("timeout", self._start_game)
+	roundManager.rounds_complete.connect(self._on_rounds_complete)
 
 func _start_game() -> void:
 	productionManager.addYieldToTotal(gameStartManager.getStartingSeedResources())
 	start_game.emit()
 
 func endGame() -> void: 
+	gameClock.pause()
 	end_game.emit()
 
 func _on_game_clock_tick(_currentTime: int):
 	productionManager.gatherYields()
+
+func _on_rounds_complete() -> void:
+	endGame()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://rc3uxvgheywh"]
+[gd_scene load_steps=20 format=3 uid="uid://rc3uxvgheywh"]
 
 [ext_resource type="PackedScene" uid="uid://bgb7qaebau7c2" path="res://scene/shop/shop.tscn" id="1_c7fbu"]
 [ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="2_8u7u6"]
@@ -36,6 +36,10 @@ font_color = Color(0.556909, 0.937469, 0.592081, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2rwqa"]
 font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_okn60"]
+font_size = 64
+font_color = Color(0.321569, 0.85098, 0.14902, 1)
 
 [node name="Game" type="Node2D"]
 
@@ -139,3 +143,19 @@ grow_horizontal = 0
 text = "Comging round"
 label_settings = SubResource("LabelSettings_2rwqa")
 horizontal_alignment = 2
+
+[node name="GameWinMessage" type="Label" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You Win!"
+label_settings = SubResource("LabelSettings_okn60")
+horizontal_alignment = 1
