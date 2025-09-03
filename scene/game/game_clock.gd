@@ -2,17 +2,22 @@ class_name GameClock
 extends Node
 
 @onready var gameClock: Timer = $GameTimer
+@onready var ui: UserUi = $"../../UI"
 
 signal game_tick
 
 var timeSeconds = 0
 
 func _ready() -> void:
-	gameClock.connect("timeout", self._on_game_timer_timeout);
+	ui.advance_round.connect(self._on_advance_round)
 
-func _on_game_timer_timeout():
+func _on_advance_round():
+	advance_time()
+
+func advance_time():
 	timeSeconds = timeSeconds + 1
 	game_tick.emit(timeSeconds)
+
 
 func get_game_time() -> int:
 	return timeSeconds

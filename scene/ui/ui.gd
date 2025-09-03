@@ -2,6 +2,7 @@ class_name UserUi
 extends Node
 
 signal attempt_pay_round
+signal advance_round
 
 @export var gameManager: GameManager
 @onready var gameClockLabel: Label = $GameClockLabel
@@ -10,6 +11,7 @@ signal attempt_pay_round
 @onready var comingRoundLabel: Label = $ComingRoundGoals
 @onready var currentRoundLabel: Label = $CurrentRoundLabel
 @onready var gameWinMessage: Label = $GameWinMessage
+@onready var advanceRoundButton: Button = $AdvanceRoundButton
 
 func _ready() -> void:
 	gameManager.start_game.connect(self._on_start_game)
@@ -22,6 +24,9 @@ func _ready() -> void:
 	comingRoundLabel.hide()
 	currentRoundLabel.hide()
 	gameWinMessage.hide()
+	advanceRoundButton.disabled = true
+	advanceRoundButton.hide()
+	advanceRoundButton.pressed.connect(self._on_advance_round_button_pressed)
 
 func _on_start_game() -> void:
 	payRoundGoalButton.disabled = false
@@ -29,6 +34,8 @@ func _on_start_game() -> void:
 	comingRoundLabel.show()
 	currentRoundLabel.show()
 	gameWinMessage.hide()
+	advanceRoundButton.disabled = false
+	advanceRoundButton.show()
 
 func _on_clock_update(gameTime: int) -> void:
 	gameClockLabel.text = "Game Time: %d" % gameTime
@@ -52,3 +59,6 @@ func _on_round_goal_update(index: int, listGoals: Array[ResourceProduction]) -> 
 
 func _on_game_end() -> void:
 	gameWinMessage.show()
+
+func _on_advance_round_button_pressed() -> void:
+	advance_round.emit()
