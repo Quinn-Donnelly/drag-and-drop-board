@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://rc3uxvgheywh"]
+[gd_scene load_steps=21 format=3 uid="uid://rc3uxvgheywh"]
 
 [ext_resource type="PackedScene" uid="uid://bgb7qaebau7c2" path="res://scene/shop/shop.tscn" id="1_c7fbu"]
 [ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="2_8u7u6"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://ciuyko3ek657l" path="res://data/workers/merchant/merchant.tres" id="5_v4hye"]
 [ext_resource type="Script" uid="uid://ceihti8ddhshb" path="res://scene/game/round_manager.gd" id="6_2rwqa"]
 [ext_resource type="Script" uid="uid://dw3igmuiwnk01" path="res://component/piece_mover.gd" id="6_o100e"]
+[ext_resource type="Script" uid="uid://cf8jfirw2l1v0" path="res://scene/game/unlock_manager.gd" id="7_o100e"]
 [ext_resource type="Script" uid="uid://c4w4nfioukxqp" path="res://scene/game/game_manager.gd" id="7_okn60"]
 [ext_resource type="Script" uid="uid://dd70mesh661o4" path="res://scene/game/game_clock.gd" id="8_oixtr"]
 [ext_resource type="Script" uid="uid://c30ungfxamr1q" path="res://scene/game/production_manager.gd" id="9_5wlrd"]
@@ -68,6 +69,9 @@ startingResources = SubResource("Resource_2rwqa")
 [node name="RoundManager" type="Node" parent="GameManager"]
 script = ExtResource("6_2rwqa")
 initialRoundGoal = SubResource("Resource_o100e")
+
+[node name="UnlockManager" type="Node" parent="GameManager"]
+script = ExtResource("7_o100e")
 
 [node name="Shop" parent="." node_paths=PackedStringArray("gameManager", "pieceMover", "productionManager") instance=ExtResource("1_c7fbu")]
 position = Vector2(0, 230)
