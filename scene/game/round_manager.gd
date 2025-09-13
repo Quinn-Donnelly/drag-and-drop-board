@@ -4,7 +4,7 @@ extends Node
 signal round_goal_update
 signal rounds_complete
 
-@export var initialRoundGoal: ResourceProduction
+@export var roundGenerationStats: Array[RoundGenerationStats]
 @onready var productionManager: ProductionManager = $"../ProductionManager"
 @onready var gameManager: GameManager = $"../"
 var roundIndex = 0
@@ -33,20 +33,15 @@ func _weighted_partition(n: int, total: float, weights: Array, power: float) -> 
 	return result
 
 func _generate_round_goals() -> void: 
-	var resourceEnabled: Array[bool] = _resources_enabled()
-	var weights: Array[float] = []
-	for enabled in resourceEnabled:
-		var weight: float = 1 if enabled else 0 
-		weights.push_back(weight)
-
-	var roundGoal = ResourceProduction.new()
-	var generatedGoal: Array = _weighted_partition(4, 50, weights,0.15)
-	roundGoal.wheat = generatedGoal[0]
-	roundGoal.gold = generatedGoal[1]
-	roundGoal.water = generatedGoal[2]
-	roundGoal.research = generatedGoal[3]
-	levelGoals.push_back(roundGoal)
-	round_goal_update.emit(roundIndex, levelGoals)
+	for stats in roundGenerationStats:
+		var roundGoal = ResourceProduction.new()
+		var generatedGoal: Array = _weighted_partition(4, stats.max_resource, stats.weights, stats.power)
+		roundGoal.wheat = generatedGoal[0]
+		roundGoal.gold = generatedGoal[1]
+		roundGoal.water = generatedGoal[2]
+		roundGoal.research = generatedGoal[3]
+		levelGoals.push_back(roundGoal)
+		round_goal_update.emit(roundIndex, levelGoals)
 
 func _resources_enabled() -> Array[bool]:
 	var resourceNames: Array[String] = ["wheat", "gold", "water", "research"]
@@ -54,9 +49,6 @@ func _resources_enabled() -> Array[bool]:
 	for resource in resourceNames:
 		resourceStatus.push_back(gameManager.unlockManager.isUnlocked(resource))
 	return resourceStatus
-
-
-
 
 func _on_game_start() -> void:
 	_generate_round_goals()

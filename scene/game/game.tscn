@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://rc3uxvgheywh"]
+[gd_scene load_steps=23 format=3 uid="uid://rc3uxvgheywh"]
 
 [ext_resource type="PackedScene" uid="uid://bgb7qaebau7c2" path="res://scene/shop/shop.tscn" id="1_c7fbu"]
 [ext_resource type="Script" uid="uid://bofq52fgcwflq" path="res://data/workers/worker_info.gd" id="2_8u7u6"]
@@ -9,9 +9,12 @@
 [ext_resource type="Script" uid="uid://ceihti8ddhshb" path="res://scene/game/round_manager.gd" id="6_2rwqa"]
 [ext_resource type="Script" uid="uid://dw3igmuiwnk01" path="res://component/piece_mover.gd" id="6_o100e"]
 [ext_resource type="Script" uid="uid://cf8jfirw2l1v0" path="res://scene/game/unlock_manager.gd" id="7_o100e"]
+[ext_resource type="Script" uid="uid://bo0re1ffadwnm" path="res://data/roundGenerationStats/round_generation_stats.gd" id="7_oixtr"]
 [ext_resource type="Script" uid="uid://c4w4nfioukxqp" path="res://scene/game/game_manager.gd" id="7_okn60"]
+[ext_resource type="Resource" uid="uid://cod4px2iv8jhv" path="res://data/roundGenerationStats/RoundGenerationTypes/only_wheat_10.tres" id="8_5wlrd"]
 [ext_resource type="Script" uid="uid://dd70mesh661o4" path="res://scene/game/game_clock.gd" id="8_oixtr"]
 [ext_resource type="Script" uid="uid://c30ungfxamr1q" path="res://scene/game/production_manager.gd" id="9_5wlrd"]
+[ext_resource type="Resource" uid="uid://cefithy86a0p3" path="res://data/roundGenerationStats/RoundGenerationTypes/wheat_research_20.tres" id="9_fkm2x"]
 [ext_resource type="Script" uid="uid://qe8gpqufkil6" path="res://scene/game/start_game_seed_manager.gd" id="10_8u7u6"]
 [ext_resource type="Script" uid="uid://ddbe1ctsui0x2" path="res://scene/ui/ui.gd" id="10_fkm2x"]
 [ext_resource type="Script" uid="uid://c8sayuif726ek" path="res://data/resourceProduction/resource_production.gd" id="12_yv2ml"]
@@ -20,14 +23,6 @@
 script = ExtResource("12_yv2ml")
 water = 0
 wheat = 1
-research = 0
-gold = 0
-metadata/_custom_type_script = "uid://c8sayuif726ek"
-
-[sub_resource type="Resource" id="Resource_o100e"]
-script = ExtResource("12_yv2ml")
-water = 0
-wheat = 10
 research = 0
 gold = 0
 metadata/_custom_type_script = "uid://c8sayuif726ek"
@@ -68,7 +63,7 @@ startingResources = SubResource("Resource_2rwqa")
 
 [node name="RoundManager" type="Node" parent="GameManager"]
 script = ExtResource("6_2rwqa")
-initialRoundGoal = SubResource("Resource_o100e")
+roundGenerationStats = Array[ExtResource("7_oixtr")]([ExtResource("8_5wlrd"), ExtResource("8_5wlrd"), ExtResource("8_5wlrd"), ExtResource("8_5wlrd"), ExtResource("9_fkm2x")])
 
 [node name="UnlockManager" type="Node" parent="GameManager"]
 script = ExtResource("7_o100e")

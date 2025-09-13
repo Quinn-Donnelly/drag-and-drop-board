@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RoundGenerationStats" load_steps=2 format=3 uid="uid://cod4px2iv8jhv"]
+
+[ext_resource type="Script" uid="uid://bo0re1ffadwnm" path="res://data/roundGenerationStats/round_generation_stats.gd" id="1_uwdj1"]
+
+[resource]
+script = ExtResource("1_uwdj1")
+max_resource = 10
+weights = Array[float]([1.0, 0.0, 0.0, 0.0])
+power = 1.0
