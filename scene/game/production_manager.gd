@@ -45,5 +45,7 @@ func cancelHold(holdNumber: int) -> void:
 
 func _on_attempt_pay() -> void:
 	if roundManager.getRoundGoal().isLessThanEqualTo(totalYields):
+		var id = createResourceHold(roundManager.getRoundGoal())
+		processHold(id)
 		round_goal_paid.emit()
 
