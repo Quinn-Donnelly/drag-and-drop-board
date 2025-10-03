@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://tdl4vk3vkcn6"]
+
+[node name="RoundShop" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -271.5
+offset_top = -191.0
+offset_right = 271.5
+offset_bottom = 191.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextEdit2" type="TextEdit" parent="PanelContainer/GridContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "First"
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextEdit2" type="TextEdit" parent="PanelContainer/GridContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Second"
+
+[node name="PanelContainer3" type="PanelContainer" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextEdit2" type="TextEdit" parent="PanelContainer/GridContainer/PanelContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "third
+"
