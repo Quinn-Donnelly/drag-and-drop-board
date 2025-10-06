@@ -27,6 +27,7 @@ func _ready() -> void:
 	advanceRoundButton.disabled = true
 	advanceRoundButton.hide()
 	advanceRoundButton.pressed.connect(self._on_advance_round_button_pressed)
+	gameManager.roundManager.connect("post_round", self._showShop)
 
 func _on_start_game() -> void:
 	payRoundGoalButton.disabled = false
@@ -62,3 +63,10 @@ func _on_game_end() -> void:
 
 func _on_advance_round_button_pressed() -> void:
 	advance_round.emit()
+
+func _showShop() -> void:
+	var shopScene = load("res://scene/round_shop/round_shop.tscn")
+	var shopInstance = shopScene.instantiate()
+	add_child(shopInstance)
+
+

@@ -3,6 +3,7 @@ extends Node
 
 signal round_goal_update
 signal rounds_complete
+signal post_round
 
 @export var roundGenerationStats: Array[RoundGenerationStats]
 @onready var productionManager: ProductionManager = $"../ProductionManager"
@@ -60,5 +61,10 @@ func _on_round_goal_paid() -> void:
 		levelGoals.clear()
 	else:
 		roundIndex += 1
+		showShop()
 
 	round_goal_update.emit(roundIndex, levelGoals)
+
+func showShop() -> void:
+	post_round.emit()
+
